@@ -44,14 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DailyList.cs" />
-    <Compile Include="DailyListWebLoader.cs" />
-    <Compile Include="DateList.cs" />
-    <Compile Include="ExchangeList.cs" />
-    <Compile Include="ExchangeRate.cs" />
-    <Compile Include="InputStream.cs" />
-    <Compile Include="Option.cs" />
-    <Compile Include="OutputStream.cs" />
+    <Compile Include="Implementation\DailyList.cs" />
+    <Compile Include="Implementation\DailyListBuilder.cs" />
+    <Compile Include="Implementation\DailyListWebLoader.cs" />
+    <Compile Include="Common\DateList.cs" />
+    <Compile Include="Implementation\ExchangeList.cs" />
+    <Compile Include="DTOs\ExchangeRate.cs" />
+    <Compile Include="Implementation\ExchangeListBuilder.cs" />
+    <Compile Include="Common\InputStream.cs" />
+    <Compile Include="Interfaces\IExchangeList.cs" />
+    <Compile Include="Interfaces\IExchangeListBuilder.cs" />
+    <Compile Include="Interfaces\IDailyListBuilder.cs" />
+    <Compile Include="Interfaces\IDailyList.cs" />
+    <Compile Include="Common\Option.cs" />
+    <Compile Include="Common\OutputStream.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

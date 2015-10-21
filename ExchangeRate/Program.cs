@@ -1,4 +1,8 @@
-﻿using System;
+﻿using ExchangeRateReader.Common;
+using ExchangeRateReader.DTOs;
+using ExchangeRateReader.Implementation;
+using ExchangeRateReader.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,9 +24,13 @@ namespace ExchangeRateReader
 
             string currency = Input.ReadString("Currency: ");
 
+            IExchangeListBuilder listBuilder =
+                new ExchangeListBuilder(
+                    new DailyListBuilder());
+
             IEnumerable<ExchangeRate> rates =
-                ExchangeList
-                .Load(DateList.BetweenInclusive(startingDate, endingDate))
+                listBuilder
+                .BuildFor(DateList.BetweenInclusive(startingDate, endingDate))
                 .Where(rate => string.Compare(rate.Currency, currency, true) == 0);
 
             new OutputStream().Print(rates);
