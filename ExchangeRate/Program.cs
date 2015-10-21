@@ -13,7 +13,7 @@ namespace ExchangeRateReader
         static void Main(string[] args)
         {
 
-            DateTime startingDate = Input.ReadDate();
+            DateTime startingDate = Input.ReadOptionalDate("Startig date - ENTER for today (DD.MM.YYYY.): ", DateTime.UtcNow.Date);
 
             string currency = Input.ReadString("Currency: ");
 
