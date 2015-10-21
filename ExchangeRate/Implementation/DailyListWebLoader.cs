@@ -1,4 +1,5 @@
 ﻿using ExchangeRateReader.DTOs;
+using ExchangeRateReader.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +10,7 @@ using System.Web;
 
 namespace ExchangeRateReader.Implementation
 {
-    class DailyListWebLoader
+    class DailyListWebLoader: IDailyListBuilder
     {
 
         private Uri GetServiceUrl(DateTime day)
@@ -17,11 +18,17 @@ namespace ExchangeRateReader.Implementation
             string raw = string.Format("http://www.nbs.rs/kursnaListaModul/srednjiKurs.faces?listno=&year=2015&listtype=3&lang=cir&date={0:dd.MM.yyyy.}", day);
             return new Uri(raw);
         }
-        public IEnumerable<ExchangeRate> LoadFor(DateTime day)
+
+        public IDailyList BuildFor(DateTime date)
         {
-            Uri url = this.GetServiceUrl(day);
+
+            Uri url = this.GetServiceUrl(date);
             WebRequest req = HttpWebRequest.CreateHttp(url);
-            return LoadFrom(req, day);
+
+            IEnumerable<ExchangeRate> data = LoadFrom(req, date);
+
+            return new DailyList(data);
+
         }
 
         private IEnumerable<ExchangeRate> LoadFrom(WebRequest req, DateTime date)
@@ -161,6 +168,5 @@ namespace ExchangeRateReader.Implementation
             return new ExchangeRate[] { new ExchangeRate(date, currency, rate) };
 
         }
-
     }
 }

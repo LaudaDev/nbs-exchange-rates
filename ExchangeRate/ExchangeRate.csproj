@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\DailyList.cs" />
-    <Compile Include="Implementation\DailyListBuilder.cs" />
     <Compile Include="Implementation\DailyListWebLoader.cs" />
     <Compile Include="Common\DateList.cs" />
     <Compile Include="Implementation\ExchangeList.cs" />

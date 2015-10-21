@@ -26,7 +26,7 @@ namespace ExchangeRateReader
 
             IExchangeListBuilder listBuilder =
                 new ExchangeListBuilder(
-                    new DailyListBuilder());
+                    new DailyListWebLoader());
 
             IEnumerable<ExchangeRate> rates =
                 listBuilder
