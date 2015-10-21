@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ExchangeRateReader.DTOs;
+using System;
 using System.Collections.Generic;
 
 namespace ExchangeRateReader.Interfaces
 {
     interface IExchangeListBuilder
     {
-        IExchangeList BuildFor(IEnumerable<DateTime> dates);
+        IEnumerable<ExchangeRate> BuildFor(IEnumerable<DateTime> dates);
     }
 }

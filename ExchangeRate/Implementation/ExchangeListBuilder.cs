@@ -21,17 +21,15 @@ namespace ExchangeRateReader.Implementation
 
         }
 
-        public IExchangeList BuildFor(IEnumerable<DateTime> dates)
+        public IEnumerable<ExchangeRate> BuildFor(IEnumerable<DateTime> dates)
         {
 
             if (dates == null)
                 throw new ArgumentNullException(nameof(dates));
 
-            IEnumerable<ExchangeRate> rates =
+            return
                 dates
                 .SelectMany(date => this.dailyListBuilder.BuildFor(date));
-
-            return new ExchangeList(rates);
 
         }
     }

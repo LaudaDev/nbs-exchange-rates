@@ -47,11 +47,9 @@
     <Compile Include="Implementation\DailyList.cs" />
     <Compile Include="Implementation\DailyListWebLoader.cs" />
     <Compile Include="Common\DateList.cs" />
-    <Compile Include="Implementation\ExchangeList.cs" />
     <Compile Include="DTOs\ExchangeRate.cs" />
     <Compile Include="Implementation\ExchangeListBuilder.cs" />
     <Compile Include="Common\InputStream.cs" />
-    <Compile Include="Interfaces\IExchangeList.cs" />
     <Compile Include="Interfaces\IExchangeListBuilder.cs" />
     <Compile Include="Interfaces\IDailyListBuilder.cs" />
     <Compile Include="Interfaces\IDailyList.cs" />
