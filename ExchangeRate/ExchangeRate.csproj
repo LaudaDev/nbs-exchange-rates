@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DailyList.cs" />
     <Compile Include="DailyListWebLoader.cs" />
+    <Compile Include="DateList.cs" />
     <Compile Include="ExchangeList.cs" />
     <Compile Include="ExchangeRate.cs" />
     <Compile Include="InputStream.cs" />

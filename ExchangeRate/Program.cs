@@ -13,13 +13,16 @@ namespace ExchangeRateReader
         static void Main(string[] args)
         {
 
-            DateTime startingDate = Input.ReadOptionalDate("Startig date - ENTER for today (DD.MM.YYYY.): ", DateTime.UtcNow.Date);
+            DateTime today = DateTime.UtcNow.Date;
+
+            DateTime startingDate = Input.ReadOptionalDate("Startig date - ENTER for today (DD.MM.YYYY.): ", today);
+            DateTime endingDate = Input.ReadOptionalDate(" Ending date - ENTER for today (DD.MM.YYYY.): ", today);
 
             string currency = Input.ReadString("Currency: ");
 
             IEnumerable<ExchangeRate> rates =
                 ExchangeList
-                .LoadFrom(startingDate)
+                .Load(DateList.BetweenInclusive(startingDate, endingDate))
                 .Where(rate => string.Compare(rate.Currency, currency, true) == 0);
 
             new OutputStream().Print(rates);
