@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ExchangeRateReader.Implementation
 {
-    class DailyList : IDailyList
+    public class DailyList : IDailyList
     {
 
         private IEnumerable<ExchangeRate> Rates { get; }

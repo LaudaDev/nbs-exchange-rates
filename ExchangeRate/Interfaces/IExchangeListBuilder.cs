@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ExchangeRateReader.Interfaces
 {
-    interface IExchangeListBuilder
+    public interface IExchangeListBuilder
     {
         IEnumerable<ExchangeRate> BuildFor(IEnumerable<DateTime> dates);
     }

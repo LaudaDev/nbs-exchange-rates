@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ExchangeRateReader.Common
 {
-    static class DateList
+    public static class DateList
     {
         public static IEnumerable<DateTime> BetweenInclusive(DateTime startingDate, DateTime endingDate)
         {

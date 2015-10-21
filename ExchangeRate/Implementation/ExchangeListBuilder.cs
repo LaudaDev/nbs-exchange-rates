@@ -6,7 +6,7 @@ using ExchangeRateReader.DTOs;
 
 namespace ExchangeRateReader.Implementation
 {
-    class ExchangeListBuilder : IExchangeListBuilder
+    public class ExchangeListBuilder : IExchangeListBuilder
     {
 
         private readonly IDailyListBuilder dailyListBuilder;

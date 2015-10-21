@@ -10,14 +10,18 @@ using System.Web;
 
 namespace ExchangeRateReader.Implementation
 {
-    class DailyListWebLoader: IDailyListBuilder
+    public class DailyListWebLoader: IDailyListBuilder
     {
+
+        private readonly NumberStyles IntegerStyle = NumberStyles.Integer;
+        private readonly NumberStyles DecimalStyle = NumberStyles.Number;
+        private readonly IFormatProvider FormatProvider = CultureInfo.GetCultureInfo("sr");
 
         public IDailyList BuildFor(DateTime date)
         {
 
             Uri url = this.GetServiceUrl(date);
-            WebRequest req = HttpWebRequest.CreateHttp(url);
+            WebRequest req = WebRequest.CreateHttp(url);
 
             IEnumerable<ExchangeRate> data = LoadFrom(req, date);
 
@@ -142,30 +146,40 @@ namespace ExchangeRateReader.Implementation
         private IEnumerable<ExchangeRate> FromRawCells(IEnumerable<string> cells, DateTime date)
         {
 
-            IEnumerable<ExchangeRate> empty = new ExchangeRate[0];
+            string[] cellsArray = cells.ToArray();
 
-            if (cells.Count() < 5)
-                return empty;
+            if (cellsArray.Length < 5)
+                return new ExchangeRate[0];
 
-            string currency = cells.ElementAt(2);
+            string currency = cellsArray[2];
+            string multiplierRaw = cellsArray[3];
+            string rateRaw = cellsArray[4];
+
+            return FromRawCells(date, currency, multiplierRaw, rateRaw);
+
+        }
+
+        private IEnumerable<ExchangeRate> FromRawCells(DateTime date, string currency, string multiplierRaw, string rateRaw)
+        {
 
             int multiplier = 0;
+            if (!int.TryParse(multiplierRaw, this.IntegerStyle, this.FormatProvider, out multiplier))
+                return new ExchangeRate[0];
 
-            NumberStyles integerStyle = NumberStyles.Integer;
-            NumberStyles decimalStyle = NumberStyles.Number;
-            IFormatProvider formatProvider = CultureInfo.GetCultureInfo("sr");
+            return FromRawCells(date, currency, multiplier, rateRaw);
 
-            if (!int.TryParse(cells.ElementAt(3), integerStyle, formatProvider, out multiplier))
-                return empty;
+        }
+
+        private IEnumerable<ExchangeRate> FromRawCells(DateTime date, string currency, int multiplier, string rateRaw)
+        {
 
             decimal rate = 0;
+            if (!decimal.TryParse(rateRaw, this.DecimalStyle, this.FormatProvider, out rate))
+                return new ExchangeRate[0];
 
-            if (!decimal.TryParse(cells.ElementAt(4), decimalStyle, formatProvider, out rate))
-                return empty;
+            rate /= (decimal) multiplier;
 
-            rate /= (decimal)multiplier;
-
-            return new ExchangeRate[] { new ExchangeRate(date, currency, rate) };
+            return new[] {new ExchangeRate(date, currency, rate)};
 
         }
     }

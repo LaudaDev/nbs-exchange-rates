@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace ExchangeRateReader.Common
 {
-    class Option<T>: IEnumerable<T>
+    public class Option<T>: IEnumerable<T>
     {
         private readonly T[] data;
 

@@ -2,7 +2,7 @@
 
 namespace ExchangeRateReader.Interfaces
 {
-    interface IDailyListBuilder
+    public interface IDailyListBuilder
     {
         IDailyList BuildFor(DateTime date);
     }

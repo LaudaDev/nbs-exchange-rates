@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ExchangeRateReader.Common
 {
-    class OutputStream
+    public class OutputStream
     {
         public void Print<T>(IEnumerable<T> sequence)
         {

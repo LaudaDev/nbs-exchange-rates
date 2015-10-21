@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ExchangeRateReader.Common
 {
-    class InputStream
+    public class InputStream
     {
 
         private readonly Regex DateRegex = new Regex(@"(?<day>[0-9]+)\. *(?<month>[0-9]+)\. *(?<year>[0-9]+)\.?");
@@ -20,17 +20,6 @@ namespace ExchangeRateReader.Common
         {
             Console.Write("{0}", label);
             return Console.ReadLine();
-        }
-
-        public int ReadInt(string label)
-        {
-            string value = ReadString(label);
-            return Int32.Parse(value);
-        }
-
-        public DateTime ReadDate(string label)
-        {
-            return this.ReadDateOptionUntilSome(() => this.TryReadDate(label));
         }
 
         public DateTime ReadOptionalDate(string label, DateTime defaultDate)
@@ -56,15 +45,6 @@ namespace ExchangeRateReader.Common
                 if (date.Any())
                     return date.Single();
             }
-        }
-
-        private Option<DateTime> TryReadDate(string label)
-        {
-
-            Match dateMatch = this.ReadMatchingInput(label, this.DateRegex);
-
-            return DateMatchToDateTime(dateMatch);
-
         }
 
         public Option<DateTime> TryReadOptionalDate(string label, DateTime defaultValue)

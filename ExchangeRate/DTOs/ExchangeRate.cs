@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ExchangeRateReader.DTOs
 {
-    class ExchangeRate
+    public class ExchangeRate
     {
 
         public DateTime Date { get; }
