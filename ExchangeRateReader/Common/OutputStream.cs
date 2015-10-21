@@ -30,5 +30,10 @@ namespace ExchangeRateReader.Common
         {
             Console.WriteLine(message);
         }
+
+        public void NewLine()
+        {
+            Console.WriteLine();
+        }
     }
 }

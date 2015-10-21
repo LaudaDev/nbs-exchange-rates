@@ -11,15 +11,26 @@ namespace ExchangeRateReader.Common
 
         private readonly Regex OptionalDateRegex = new Regex(@"(?<day>[0-9]+)\. *(?<month>[0-9]+)\. *(?<year>[0-9]+)\.?|(?<missing>) *");
 
-        public void WaitEnter()
-        {
-            this.ReadString("Press ENTER to continue . . . ");
-        }
-
         public string ReadString(string label)
         {
             Console.Write("{0}", label);
             return Console.ReadLine();
+        }
+
+        public bool ReadYesNo(string label)
+        {
+            while (true)
+            {
+
+                string answer = this.ReadString(label).ToLower();
+
+                if (answer == "yes")
+                    return true;
+
+                if (answer == "no")
+                    return false;
+
+            }
         }
 
         public DateTime ReadOptionalDate(string label, DateTime defaultDate)

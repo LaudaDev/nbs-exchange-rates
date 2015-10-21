@@ -20,12 +20,21 @@ namespace ExchangeRateReader
         static void Main(string[] args)
         {
 
+            do
+            {
+                Run();
+            } while (ShouldRepeat());
+
+        }
+
+        private static void Run()
+        {
+
             DateTime today = DateTime.UtcNow.Date;
 
-            DateTime startingDate = Input.ReadOptionalDate("Startig date - ENTER for today (DD.MM.YYYY.): ", today, (date) => date <= today);
-            DateTime endingDate = Input.ReadOptionalDate(" Ending date - ENTER for today (DD.MM.YYYY.): ", today, (date) => date >= startingDate && date <= today);
-
-            string currency = Input.ReadString("Currency: ");
+            DateTime startingDate = ReadStartingDate(today);
+            DateTime endingDate = ReadEndingDate(startingDate, today);
+            string currency = ReadCurrency();
 
             try
             {
@@ -37,8 +46,27 @@ namespace ExchangeRateReader
                 Output.Print(ex.Message);
             }
 
-            Input.WaitEnter();
+        }
 
+        private static bool ShouldRepeat()
+        {
+            Output.NewLine();
+            return Input.ReadYesNo("Do you want to repeat the query? (yes/no) ");
+        }
+
+        private static DateTime ReadStartingDate(DateTime maxDate)
+        {
+            return Input.ReadOptionalDate("Startig date - ENTER for maxDate (DD.MM.YYYY.): ", maxDate, (date) => date <= maxDate);
+        }
+
+        private static DateTime ReadEndingDate(DateTime minDate, DateTime maxDate)
+        {
+            return Input.ReadOptionalDate(" Ending date - ENTER for maxDate (DD.MM.YYYY.): ", maxDate, (date) => date >= minDate && date <= maxDate);
+        }
+
+        private static string ReadCurrency()
+        {
+            return Input.ReadString("Currency: ");
         }
 
         private static IEnumerable<ExchangeRate> LoadExchangeRates(DateTime startingDate, DateTime endingDate, string currency)
@@ -52,8 +80,8 @@ namespace ExchangeRateReader
 
             return
                 listBuilder
-                .BuildFor(DateList.BetweenInclusive(startingDate, endingDate))
-                .Where(rate => String.Compare(rate.Currency, currency, StringComparison.OrdinalIgnoreCase) == 0);
+                    .BuildFor(DateList.BetweenInclusive(startingDate, endingDate))
+                    .Where(rate => String.Compare(rate.Currency, currency, StringComparison.OrdinalIgnoreCase) == 0);
 
         }
     }
