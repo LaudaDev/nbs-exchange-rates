@@ -44,12 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DictionaryExtensions.cs" />
     <Compile Include="Implementation\DailyList.cs" />
+    <Compile Include="Implementation\DailyListCachingBuilder.cs" />
     <Compile Include="Implementation\DailyListWebLoader.cs" />
     <Compile Include="Common\DateList.cs" />
     <Compile Include="DTOs\ExchangeRate.cs" />
     <Compile Include="Implementation\ExchangeListBuilder.cs" />
     <Compile Include="Common\InputStream.cs" />
+    <Compile Include="Implementation\IDailyListRepository.cs" />
+    <Compile Include="Infrastructure\DailyListFile.cs" />
+    <Compile Include="Infrastructure\DailyListRepository.cs" />
+    <Compile Include="Infrastructure\DailyListSerializer.cs" />
     <Compile Include="Interfaces\IExchangeListBuilder.cs" />
     <Compile Include="Interfaces\IDailyListBuilder.cs" />
     <Compile Include="Interfaces\IDailyList.cs" />

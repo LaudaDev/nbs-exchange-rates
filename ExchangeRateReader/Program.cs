@@ -5,6 +5,9 @@ using ExchangeRateReader.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExchangeRateReader.Infrastructure;
+
+[assembly: CLSCompliant(true)]
 
 namespace ExchangeRateReader
 {
@@ -43,12 +46,14 @@ namespace ExchangeRateReader
 
             IExchangeListBuilder listBuilder =
                 new ExchangeListBuilder(
-                    new DailyListWebLoader());
+                    new DailyListCachingBuilder(
+                       new DailyListWebLoader(),
+                       new DailyListRepository()));
 
             return
                 listBuilder
                 .BuildFor(DateList.BetweenInclusive(startingDate, endingDate))
-                .Where(rate => string.Compare(rate.Currency, currency, true) == 0);
+                .Where(rate => String.Compare(rate.Currency, currency, StringComparison.OrdinalIgnoreCase) == 0);
 
         }
     }

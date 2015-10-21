@@ -25,5 +25,10 @@ namespace ExchangeRateReader.Common
             Console.WriteLine(obj.ToString());
 
         }
+
+        public void Print(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }

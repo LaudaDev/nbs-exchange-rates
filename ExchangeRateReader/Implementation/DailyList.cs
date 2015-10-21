@@ -9,14 +9,16 @@ namespace ExchangeRateReader.Implementation
     public class DailyList : IDailyList
     {
 
+        public DateTime Date { get; }
         private IEnumerable<ExchangeRate> Rates { get; }
 
-        public DailyList(IEnumerable<ExchangeRate> rates)
+        public DailyList(DateTime date, IEnumerable<ExchangeRate> rates)
         {
 
             if (rates == null)
                 throw new ArgumentNullException(nameof(rates));
 
+            this.Date = date;
             this.Rates = rates;
         }
 

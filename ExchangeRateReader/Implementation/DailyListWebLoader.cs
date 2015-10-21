@@ -25,7 +25,7 @@ namespace ExchangeRateReader.Implementation
 
             IEnumerable<ExchangeRate> data = LoadFrom(req, date);
 
-            return new DailyList(data);
+            return new DailyList(date, data);
 
         }
 
