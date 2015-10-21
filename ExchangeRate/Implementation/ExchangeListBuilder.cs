@@ -13,13 +13,19 @@ namespace ExchangeRateReader.Implementation
 
         public ExchangeListBuilder(IDailyListBuilder dailyListBuilder)
         {
+
             if (dailyListBuilder == null)
                 throw new ArgumentNullException(nameof(dailyListBuilder));
+
             this.dailyListBuilder = dailyListBuilder;
+
         }
 
         public IExchangeList BuildFor(IEnumerable<DateTime> dates)
         {
+
+            if (dates == null)
+                throw new ArgumentNullException(nameof(dates));
 
             IEnumerable<ExchangeRate> rates =
                 dates

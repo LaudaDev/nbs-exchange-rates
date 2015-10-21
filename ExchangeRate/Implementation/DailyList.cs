@@ -1,5 +1,6 @@
 ﻿using ExchangeRateReader.DTOs;
 using ExchangeRateReader.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,6 +13,10 @@ namespace ExchangeRateReader.Implementation
 
         public DailyList(IEnumerable<ExchangeRate> rates)
         {
+
+            if (rates == null)
+                throw new ArgumentNullException(nameof(rates));
+
             this.Rates = rates;
         }
 

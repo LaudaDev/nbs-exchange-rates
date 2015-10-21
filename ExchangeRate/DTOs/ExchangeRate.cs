@@ -12,9 +12,14 @@ namespace ExchangeRateReader.DTOs
 
         public ExchangeRate(DateTime date, string currency, decimal rate)
         {
+
+            if (string.IsNullOrEmpty(currency))
+                throw new ArgumentException(nameof(currency));
+
             this.Date = date;
             this.Currency = currency;
             this.Rate = rate;
+
         }
 
         public override string ToString()

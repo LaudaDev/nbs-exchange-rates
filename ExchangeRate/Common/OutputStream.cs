@@ -7,13 +7,23 @@ namespace ExchangeRateReader.Common
     {
         public void Print<T>(IEnumerable<T> sequence)
         {
+
+            if (sequence == null)
+                throw new ArgumentNullException(nameof(sequence));
+
             foreach (T value in sequence)
                 Print(value);
+
         }
 
         public void Print(object obj)
         {
+
+            if (obj == null)
+                return;
+
             Console.WriteLine(obj.ToString());
+
         }
     }
 }

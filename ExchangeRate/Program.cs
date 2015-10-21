@@ -24,18 +24,31 @@ namespace ExchangeRateReader
 
             string currency = Input.ReadString("Currency: ");
 
+            try
+            {
+                IEnumerable<ExchangeRate> rates = LoadExchangeRates(startingDate, endingDate, currency);
+                Output.Print(rates);
+            }
+            catch (Exception ex)
+            {
+                Output.Print(ex.Message);
+            }
+
+            Input.WaitEnter();
+
+        }
+
+        private static IEnumerable<ExchangeRate> LoadExchangeRates(DateTime startingDate, DateTime endingDate, string currency)
+        {
+
             IExchangeListBuilder listBuilder =
                 new ExchangeListBuilder(
                     new DailyListWebLoader());
 
-            IEnumerable<ExchangeRate> rates =
+            return
                 listBuilder
                 .BuildFor(DateList.BetweenInclusive(startingDate, endingDate))
                 .Where(rate => string.Compare(rate.Currency, currency, true) == 0);
-
-            new OutputStream().Print(rates);
-
-            Input.WaitEnter();
 
         }
     }

@@ -13,12 +13,6 @@ namespace ExchangeRateReader.Implementation
     class DailyListWebLoader: IDailyListBuilder
     {
 
-        private Uri GetServiceUrl(DateTime day)
-        {
-            string raw = string.Format("http://www.nbs.rs/kursnaListaModul/srednjiKurs.faces?listno=&year=2015&listtype=3&lang=cir&date={0:dd.MM.yyyy.}", day);
-            return new Uri(raw);
-        }
-
         public IDailyList BuildFor(DateTime date)
         {
 
@@ -29,6 +23,12 @@ namespace ExchangeRateReader.Implementation
 
             return new DailyList(data);
 
+        }
+
+        private Uri GetServiceUrl(DateTime day)
+        {
+            string raw = string.Format("http://www.nbs.rs/kursnaListaModul/srednjiKurs.faces?listno=&year=2015&listtype=3&lang=cir&date={0:dd.MM.yyyy.}", day);
+            return new Uri(raw);
         }
 
         private IEnumerable<ExchangeRate> LoadFrom(WebRequest req, DateTime date)
