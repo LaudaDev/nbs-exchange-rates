@@ -15,8 +15,8 @@ namespace ExchangeRateReader
 
             DateTime today = DateTime.UtcNow.Date;
 
-            DateTime startingDate = Input.ReadOptionalDate("Startig date - ENTER for today (DD.MM.YYYY.): ", today);
-            DateTime endingDate = Input.ReadOptionalDate(" Ending date - ENTER for today (DD.MM.YYYY.): ", today);
+            DateTime startingDate = Input.ReadOptionalDate("Startig date - ENTER for today (DD.MM.YYYY.): ", today, (date) => date <= today);
+            DateTime endingDate = Input.ReadOptionalDate(" Ending date - ENTER for today (DD.MM.YYYY.): ", today, (date) => date >= startingDate && date <= today);
 
             string currency = Input.ReadString("Currency: ");
 
